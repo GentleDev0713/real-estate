@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema(
     user: { type: String },
     isAdmin: { type: Boolean, default: false },
     googleId: { type: String },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     timeStamps: true,

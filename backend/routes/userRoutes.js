@@ -14,7 +14,7 @@ router.route("/register").post(registerUser).get(protect, allUsers);
 router.post("/login", authUser);
 router.route;
 
-router.get("/get", (req, res) => {
+router.get("/get-users", (req, res) => {
   try {
     Auth.find({}).then((response) => {
       console.log("res", response);

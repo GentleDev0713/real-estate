@@ -1,10 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-const submitListingRouter = require("./routes/SubmitListing");
-const userRoutes = require("./routes/userRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const chatRoutes = require("./routes/chatRoutes");
+
+const router = require("./routes");
 const cors = require("cors");
 const passport = require("passport");
 const cookieSession = require("cookie-session");
@@ -30,10 +28,7 @@ app.use(express.static(__dirname));
 app.use(express.json());
 app.use(cors());
 
-app.use("/submitlisting", submitListingRouter);
-app.use("/", userRoutes);
-app.use("/api/chat", chatRoutes);
-app.use("/api/message", messageRoutes);
+app.use("/", router);
 
 const port = process.env.PORT || 3003;
 const server = app.listen(port, () => {
