@@ -36,6 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
       email: newAuth.email,
       pic: newAuth.pic,
       user: newAuth.user,
+      isAdmin: newAuth.isAdmin,
       token: generateToken(newAuth._id),
       Msg: "register",
     });
@@ -49,7 +50,6 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await Auth.findOne({ email });
-
   if (user) {
     const bytes = CryptoJS.AES.decrypt(user.password, "secret key 123");
     const originalPassword = bytes.toString(CryptoJS.enc.Utf8);
@@ -59,6 +59,7 @@ const authUser = asyncHandler(async (req, res) => {
         name: user.name,
         email: user.email,
         pic: user.pic,
+        isAdmin: user.isAdmin,
         token: generateToken(user._id),
         user: user.user,
         Msg: "login",

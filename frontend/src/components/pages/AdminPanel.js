@@ -1,14 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import MetaTags from "react-meta-tags";
 import axios from "axios";
 
 const AdminPanel = () => {
   const [state, setState] = useState([]);
+  const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-  axios.get("http://localhost:3003/get-users").then((res) => {
-    setState(res.data.result);
-  });
+  // axios.get("http://localhost:3003/get-users").then((res) => {
+  //   setState(res.data.result);
+  // });
+
+  const logout = () => {
+    navigate("/login");
+    JSON.parse(localStorage.removeItem("userInfo"));
+  };
+
+  // useEffect(() => {
+  //   window.addEventListener(
+  //     "scroll",
+  //     () => {
+  //       window.scrollY > 100 ? setSticky("sticky") : setSticky("");
+  //     },
+  //     false
+  //   );
+  // });
+
+  useEffect(() => {
+    if (!userInfo || !userInfo.isAdmin) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const deleteUser = (id) => {
     axios.delete(`http://localhost:3003/${id}`).then((res) => {
@@ -19,15 +44,40 @@ const AdminPanel = () => {
 
   return (
     <div>
+      <MetaTags>
+        <title>Acres - Real Estate React Template | Admin</title>
+        <meta name="description" content="#" />
+      </MetaTags>
       <div
         style={{
           backgroundColor: "black",
           color: "white",
           display: "flex",
-          justifyContent: "center",
+          padding: "2%",
         }}
       >
-        <div style={{ fontSize: "25px", padding: "2%" }}>Admin Panel</div>
+        <div className="col-md-8 col-lg-8" style={{ fontSize: "25px" }}>
+          Admin Panel
+        </div>
+        <div
+          className="col-md-2 col-lg-2 text-right"
+          style={{ justifyContent: "right", fontSize: "20px" }}
+        >
+          {userInfo.name}
+        </div>
+        <div className="col-md-1 col-lg-1 text-center" style={{}}>
+          <p
+            onClick={() => logout()}
+            style={{
+              backgroundColor: "white",
+              padding: "5px 10px",
+              borderRadius: "20px",
+              cursor: "pointer",
+            }}
+          >
+            Log Out
+          </p>
+        </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <table style={{ width: "70%", border: "3px solid", margin: "5%" }}>

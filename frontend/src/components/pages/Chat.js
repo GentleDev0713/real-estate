@@ -9,7 +9,6 @@ const ChatPage = () => {
 
   const { selectedChat } = ChatState();
   const [fetchAgain, setFetchAgain] = useState(false);
-  console.log(selectedChat);
   return (
     <div>
       <Headerfour />

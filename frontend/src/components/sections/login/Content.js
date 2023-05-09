@@ -29,7 +29,6 @@ const Content = () => {
       .then((data) => {
         data.Msg === "login" ? setUser(data) : setError(true);
         setErrorMsg(data.Msg);
-        console.log(data);
       });
   };
 
@@ -75,13 +74,13 @@ const Content = () => {
             </p>
           </div>
           <div className="form-group">
-            <label>Email</label>
+            <label>Email or Mobile Number</label>
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="form-control form-control-light"
-              placeholder="Email"
+              placeholder="Email or Mobile Number"
               name="Email"
             />
           </div>

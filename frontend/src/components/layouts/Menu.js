@@ -88,9 +88,6 @@ const Menu = () => {
           <Link to="/buy">Buy</Link>
         </li>
         <li className="menu-item menu-item-has-children">
-          <Link to="/sell">Sell</Link>
-        </li>
-        <li className="menu-item menu-item-has-children">
           <Link to="/rent">Rent</Link>
         </li>
         <li className="menu-item menu-item-has-children items-center">

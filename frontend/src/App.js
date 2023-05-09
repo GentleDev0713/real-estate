@@ -124,8 +124,8 @@
 
 ///////////////////////////////////////////////   Functional Components    //////////////////////////////////////////////////////////////////////
 
-import React from "react";
-import { Route, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import Homefour from "./components/pages/Homefour";
 import Chat from "./components/pages/Chat";
 import Services from "./components/pages/Services";
@@ -160,14 +160,21 @@ import ListingDetailsOne from "./components/pages/Listingdetailsone";
 import "./index.css";
 import PropertyListing from "./components/pages/PropertyListing";
 import View from "./components/sections/view-all/View-All";
-// const Listingdetailsone = React.lazy(() =>
-//   import("./components/pages/Listingdetailsone")
 
 const App = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    if (userInfo && userInfo.isAdmin) navigate("/admin");
+  }, [navigate]);
+
   return (
     <div className="App">
       {/* asdhsv */}
       <Routes>
+        {/* {
+        userInfo.
+      } */}
         {/* Homepages */}
         <Route exact path="/" element={<Homefour />} />
         <Route path="/submit-listing" element={<Submitlisting />} />

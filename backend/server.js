@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const submitListingRouter = require("./routes/SubmitListing");
@@ -5,6 +6,8 @@ const userRoutes = require("./routes/userRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const cors = require("cors");
+const passport = require("passport");
+const cookieSession = require("cookie-session");
 
 // const submitRoute = require("./routes/SubmitListing");
 
@@ -16,6 +19,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/").catch((err) => {
   console.log(err, "err in  connecting");
 });
 
+app.use(
+  cookieSession({
+    name: "session",
+    keys: ["buyhomeforless"],
+  })
+);
+
 app.use(express.static(__dirname));
 app.use(express.json());
 app.use(cors());
@@ -25,8 +35,9 @@ app.use("/", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
 
-const server = app.listen(3003, () => {
-  console.log("Backend is Running");
+const port = process.env.PORT || 3003;
+const server = app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 // app.use(
 //   cors({
